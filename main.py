@@ -1,16 +1,27 @@
 import sys
 
 from libr.geocoder import get_coordinates
-from libr.mapapi_PG import show_map
+from libr.mapapi_PG import get_map
+
+from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtGui import QPixmap
+
+from UI.map_ui import Ui_MainWindow
 
 
-def main():
-    toponym_to_find = ' '.join(sys.argv[1:])
-    if toponym_to_find:
-        lat, lon = get_coordinates(toponym_to_find)
-        ll_spn = f'll={lat},{lon}&spn=0.005,0.005'
-        show_map(ll_spn, 'map')
+class Map(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ll_spn = 'll=51.768156,55.0969797&spn=0.005,0.005'
+        self.initUi()
+
+    def initUi(self):
+        super().setupUi(self)
+        self.map_lbl.setPixmap(QPixmap(get_map(self.ll_spn)))
 
 
 if __name__ == '__main__':
-    main()
+    app = QApplication(sys.argv)
+    map_win = Map()
+    map_win.show()
+    sys.exit(app.exec_())
