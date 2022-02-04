@@ -12,7 +12,7 @@ from UI.map_ui import Ui_MainWindow
 class Map(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.ll_spn = 'll=51.768156,55.0969797&spn=0.005,0.005'
+        self.ll_spn = 'll=51.768156,55.0969797&spn=1.5,1.5'
         self.initUi()
 
     def initUi(self):
